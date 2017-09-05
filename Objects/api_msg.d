@@ -1,0 +1,9 @@
+.\objects\api_msg.o: Libraries\lwip-1.4.1\src\api\api_msg.c
+.\objects\api_msg.o: .\Libraries\lwip-1.4.1\src\include\lwip/opt.h
+.\objects\api_msg.o: .\port\lwipopts.h
+.\objects\api_msg.o: .\Libraries\lwip-1.4.1\src\include\lwip/debug.h
+.\objects\api_msg.o: .\Libraries\lwip-1.4.1\src\include\lwip/arch.h
+.\objects\api_msg.o: .\Libraries\lwip-1.4.1\port\STM32F4x7\arch/cc.h
+.\objects\api_msg.o: .\Libraries\lwip-1.4.1\port\STM32F4x7\arch/cpu.h
+.\objects\api_msg.o: .\Libraries\lwip-1.4.1\src\include\lwip/opt.h
+.\objects\api_msg.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

@@ -1,0 +1,9 @@
+.\objects\stats.o: Libraries\lwip-1.4.1\src\core\stats.c
+.\objects\stats.o: .\Libraries\lwip-1.4.1\src\include\lwip/opt.h
+.\objects\stats.o: .\port\lwipopts.h
+.\objects\stats.o: .\Libraries\lwip-1.4.1\src\include\lwip/debug.h
+.\objects\stats.o: .\Libraries\lwip-1.4.1\src\include\lwip/arch.h
+.\objects\stats.o: .\Libraries\lwip-1.4.1\port\STM32F4x7\arch/cc.h
+.\objects\stats.o: .\Libraries\lwip-1.4.1\port\STM32F4x7\arch/cpu.h
+.\objects\stats.o: .\Libraries\lwip-1.4.1\src\include\lwip/opt.h
+.\objects\stats.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
