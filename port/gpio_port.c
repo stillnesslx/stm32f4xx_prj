@@ -45,6 +45,53 @@
   *     
   * @retval None
   **************************************************************************************************************/
+struct di_data di_value = {0,0,{0},{0}};
+
+void di_flilter_init(void)
+{
+    int i;
+    di_value.di_new = 0;
+    di_value.di_filtered = 0x0;
+    for(i=0;i<DI_CHANNEL_NUM;i++)
+    {
+        di_value.di_timer[i] = 0;
+        di_value.di_filter_num[i] = DI_FILTER_VALUE;
+    }
+}
+void read_di(struct di_data *p)
+{
+    /* Read a half-word from the memory */
+    uint16_t i = 0;
+    uint32_t tmp;
+    //p->di_new = (GPIO_ReadInputData(GPIOD) >> 8) & 0x3f;
+	p->di_new = GPIO_ReadInputDataBit(GPIOH,GPIO_Pin_8)
+			|  (GPIO_ReadInputDataBit(GPIOH,GPIO_Pin_9) << 1)
+			|  (GPIO_ReadInputDataBit(GPIOH,GPIO_Pin_10) << 2)
+			|  (GPIO_ReadInputDataBit(GPIOH,GPIO_Pin_11) << 3)
+			|  (GPIO_ReadInputDataBit(GPIOI,GPIO_Pin_3) << 4)
+			|  (GPIO_ReadInputDataBit(GPIOI,GPIO_Pin_4) << 5)
+			|  (GPIO_ReadInputDataBit(GPIOI,GPIO_Pin_5) << 6)
+			|  (GPIO_ReadInputDataBit(GPIOI,GPIO_Pin_6) << 7);
+    tmp = p->di_new ^ p->di_filtered;
+    while(i < DI_CHANNEL_NUM)
+    {
+        if(0 == (tmp & ((uint32_t)1<<i)))
+        {
+            p->di_timer[i] = 0;
+        }
+        else
+        {
+            ++p->di_timer[i];
+            if(p->di_timer[i] > p->di_filter_num[i])
+            {
+                p->di_filtered &= ~((uint32_t)1<<i);
+                p->di_filtered |=  ((uint32_t)1<<i) & p->di_new;
+                p->di_timer[i] = 0;
+            }
+        }
+        ++i;
+    }
+}
 
 void GPIO_Out_Config(void)
 {

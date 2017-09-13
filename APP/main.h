@@ -37,7 +37,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx.h"
 #include "stm32f4x7_eth_bsp.h"
-#include "fifo_buffer.h"
+#include "algorithm.h"
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
@@ -116,16 +116,15 @@
 void Time_Update(void);
 void Delay(uint32_t nCount);
 
-//add by rxl 20170901
-#define TCP_FRAME_SIZE 1500
+
 #if 0
 #define TCP_FIFO_SIZE 8
-struct tcp_frame_buffer
-{
-	u8_t buf[TCP_FRAME_SIZE];
-};
-extern struct tcp_frame_buffer tcp_fifo_buf[TCP_FIFO_SIZE];
-extern t_fifo_buffer tcp_rx_fifo;
+//struct tcp_frame_buffer
+//{
+	//u8_t buf[TCP_FRAME_SIZE];
+//};
+//extern struct tcp_frame_buffer tcp_fifo_buf[TCP_FIFO_SIZE];
+//extern t_fifo_buffer tcp_rx_fifo;
 #endif
 //end add by rxl 20170901
 

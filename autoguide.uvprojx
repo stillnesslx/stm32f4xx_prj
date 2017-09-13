@@ -396,14 +396,19 @@
               <FilePath>.\APP\at24cxx.c</FilePath>
             </File>
             <File>
-              <FileName>usart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\APP\usart.c</FilePath>
-            </File>
-            <File>
               <FileName>fault.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\APP\fault.c</FilePath>
+            </File>
+            <File>
+              <FileName>sys_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\APP\sys_timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>cal_lms5xx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\port\cal_lms5xx.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -431,11 +436,6 @@
               <FilePath>.\port\iic_gpio.c</FilePath>
             </File>
             <File>
-              <FileName>sys_conf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\port\sys_conf.c</FilePath>
-            </File>
-            <File>
               <FileName>adc_port.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\port\adc_port.c</FilePath>
@@ -444,6 +444,11 @@
               <FileName>gpio_port.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\port\gpio_port.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart_port.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\port\usart_port.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -881,9 +886,14 @@
           <GroupName>algorithm</GroupName>
           <Files>
             <File>
-              <FileName>fifo_buffer.c</FileName>
+              <FileName>triangle.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\algorithm\fifo_buffer.c</FilePath>
+              <FilePath>.\algorithm\triangle.c</FilePath>
+            </File>
+            <File>
+              <FileName>algorithm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\algorithm\algorithm.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -51,7 +51,7 @@
 .\objects\stm32f4x7_eth_bsp.o: .\Libraries\lwip-1.4.1\src\include\ipv4\lwip/ip_addr.h
 .\objects\stm32f4x7_eth_bsp.o: .\Libraries\lwip-1.4.1\src\include\lwip/def.h
 .\objects\stm32f4x7_eth_bsp.o: .\Libraries\lwip-1.4.1\src\include\lwip/pbuf.h
-.\objects\stm32f4x7_eth_bsp.o: .\algorithm\fifo_buffer.h
+.\objects\stm32f4x7_eth_bsp.o: .\algorithm\algorithm.h
 .\objects\stm32f4x7_eth_bsp.o: port\netconf.h
 .\objects\stm32f4x7_eth_bsp.o: .\Libraries\lwip-1.4.1\src\include\lwip/dhcp.h
 .\objects\stm32f4x7_eth_bsp.o: .\Libraries\lwip-1.4.1\src\include\lwip/udp.h

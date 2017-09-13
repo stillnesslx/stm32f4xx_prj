@@ -32,13 +32,15 @@
 #include "lwip/tcp.h"
 #include "lwip/tcp_impl.h"
 #include "at24cxx.h"
-#include "usart.h"
+#include "usart_port.h"
 #include "gpio_port.h"
 #include "tcp_echoclient.h"
 #include "usart.h"
 #include "adc_port.h"
 #include "fault.h"
 #include "delay.h"
+#include "cal_lms5xx.h"
+
 //#include "serial_debug.h"
 
 /* Private typedef -----------------------------------------------------------*/
@@ -70,8 +72,13 @@ int main(void)
        system_stm32f4xx.c file
 	*/
 	int i=0;
+	
+	cal_par_init();
+	tcp_rec_fifo_init(&tcp_rec_fifo);
+	
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
-	uart_init(84,9600);		//初始化串口波特率为9600
+	//uart_init(84,9600);		//初始化串口波特率为9600
+	USART_Config();
 	AT24CXX_Init();
 
 	/* Configure ethernet (GPIOs, clocks, MAC, DMA) */
@@ -79,6 +86,7 @@ int main(void)
 
 	/* Initilaize the LwIP stack */
 	LwIP_Init();
+	di_flilter_init();
 	GPIO_In_Config();
 	GPIO_Out_Config();
 	
@@ -107,6 +115,7 @@ int main(void)
 	/* Infinite loop */
 	while (1)
 	{
+		usart1_receive();
 		//USART1_IRQHandler();
 		/* check if any packet received */
 		if (ETH_CheckFrameReceived())

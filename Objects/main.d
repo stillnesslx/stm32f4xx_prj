@@ -51,7 +51,7 @@
 .\objects\main.o: .\Libraries\lwip-1.4.1\src\include\ipv4\lwip/ip_addr.h
 .\objects\main.o: .\Libraries\lwip-1.4.1\src\include\lwip/def.h
 .\objects\main.o: .\Libraries\lwip-1.4.1\src\include\lwip/pbuf.h
-.\objects\main.o: .\algorithm\fifo_buffer.h
+.\objects\main.o: .\algorithm\algorithm.h
 .\objects\main.o: .\port\netconf.h
 .\objects\main.o: .\Libraries\lwip-1.4.1\src\include\lwip/tcp.h
 .\objects\main.o: .\Libraries\lwip-1.4.1\src\include\lwip/mem.h
@@ -59,10 +59,12 @@
 .\objects\main.o: .\Libraries\lwip-1.4.1\src\include\ipv4\lwip/icmp.h
 .\objects\main.o: .\Libraries\lwip-1.4.1\src\include\lwip/tcp_impl.h
 .\objects\main.o: APP\at24cxx.h
-.\objects\main.o: APP\usart.h
-.\objects\main.o: .\Libraries\lwip-1.4.1\src\include\lwip\sys.h
+.\objects\main.o: .\port\usart_port.h
 .\objects\main.o: .\port\gpio_port.h
 .\objects\main.o: .\port\tcp_echoclient.h
+.\objects\main.o: APP\usart.h
+.\objects\main.o: .\Libraries\lwip-1.4.1\src\include\lwip\sys.h
 .\objects\main.o: .\port\adc_port.h
 .\objects\main.o: APP\fault.h
 .\objects\main.o: .\Utilities\delay.h
+.\objects\main.o: .\port\cal_lms5xx.h

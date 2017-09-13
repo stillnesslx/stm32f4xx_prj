@@ -51,5 +51,5 @@
 .\objects\stm32f4x7_eth.o: .\Libraries\lwip-1.4.1\src\include\ipv4\lwip/ip_addr.h
 .\objects\stm32f4x7_eth.o: .\Libraries\lwip-1.4.1\src\include\lwip/def.h
 .\objects\stm32f4x7_eth.o: .\Libraries\lwip-1.4.1\src\include\lwip/pbuf.h
-.\objects\stm32f4x7_eth.o: .\algorithm\fifo_buffer.h
+.\objects\stm32f4x7_eth.o: .\algorithm\algorithm.h
 .\objects\stm32f4x7_eth.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

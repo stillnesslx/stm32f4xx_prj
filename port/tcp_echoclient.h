@@ -33,8 +33,15 @@
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
+//add by rxl 20170901
+#define TCP_FRAME_NUM  5U
+#define TCP_ONE_FRAME_SIZE (1500U)
+#define TCP_TOTAL_FRAME_SIZE (TCP_FRAME_NUM*TCP_ONE_FRAME_SIZE)
 /* Exported functions ------------------------------------------------------- */
+extern struct fifo_buffer tcp_rec_fifo;
+
 void tcp_echoclient_connect(void);
+extern void tcp_rec_fifo_init(struct fifo_buffer *fifo);
 
 #endif /* __TCP_ECHOCLIENT_H__ */
 

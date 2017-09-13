@@ -55,5 +55,5 @@
 .\objects\ethernetif.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h
 .\objects\ethernetif.o: .\APP\main.h
 .\objects\ethernetif.o: .\port\stm32f4x7_eth_bsp.h
-.\objects\ethernetif.o: .\algorithm\fifo_buffer.h
+.\objects\ethernetif.o: .\algorithm\algorithm.h
 .\objects\ethernetif.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

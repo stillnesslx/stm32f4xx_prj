@@ -60,5 +60,5 @@
 .\objects\netconf.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h
 .\objects\netconf.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h
 .\objects\netconf.o: .\port\stm32f4x7_eth_bsp.h
-.\objects\netconf.o: .\algorithm\fifo_buffer.h
+.\objects\netconf.o: .\algorithm\algorithm.h
 .\objects\netconf.o: port\netconf.h

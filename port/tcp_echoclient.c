@@ -29,12 +29,15 @@
 #include "lwip/debug.h"
 #include "lwip/stats.h"
 #include "lwip/tcp.h"
-#include "main.h"
+
+#include "tcp_echoclient.h"
+//#include "main.h"
 #include "memp.h"
 #include "main.h"
 #include <stdio.h>
 #include <string.h>
-#include "fifo_buffer.h"
+#include "algorithm.h"
+#include "cal_lms5xx.h"
 
 //#if LWIP_TCP
 /* Private typedef -----------------------------------------------------------*/
@@ -42,16 +45,17 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 
-
+struct fifo_buffer tcp_rec_fifo;
 //u8_t  recev_buf[50];
 __IO uint32_t message_count=0;
 
 //u8_t   data[100];
 u8_t data[20]={0x02,0x73,0x52,0x4E,0x20,0x4c,0x4D,0x44,0x73,0x63,0x61,0x6E,0x64,0x61,0x74,0x61,0x03};
-struct tcp_pcb *echoclient_pcb;
-u8_t tcp_client_recvbuf[TCP_FRAME_SIZE];
 
-t_fifo_buffer tcp_fifo_buffer;
+struct tcp_pcb *echoclient_pcb;
+u8_t tcp_client_recvbuf[TCP_TOTAL_FRAME_SIZE];
+
+//t_fifo_buffer tcp_fifo_buffer;
 /* ECHO protocol states */
 enum echoclient_states
 {
@@ -80,7 +84,16 @@ static void tcp_echoclient_send(struct tcp_pcb *tpcb, struct echoclient * es);
 static err_t tcp_echoclient_connected(void *arg, struct tcp_pcb *tpcb, err_t err);
 
 /* Private functions ---------------------------------------------------------*/
-
+void tcp_rec_fifo_init(struct fifo_buffer *fifo)
+{
+	memset(fifo,0,sizeof(struct fifo_buffer));
+	fifo->buf_ptr = tcp_client_recvbuf;
+	fifo->buf_size = TCP_FRAME_NUM;
+	fifo->byte_sizes = TCP_ONE_FRAME_SIZE;
+	fifo->byte_wr = 0;
+	fifo->rd = 0;
+	fifo->wr = 0;
+}
 
 /**
 * @brief  Connects to the TCP echo server
@@ -188,7 +201,7 @@ static err_t tcp_echoclient_recv(void *arg, struct tcp_pcb *tpcb, struct pbuf *p
   struct echoclient *es;
   err_t ret_err;
   struct pbuf *q;
-  uint32_t data_len=0; 
+  //uint32_t data_len=0; 
 
   LWIP_ASSERT("arg != NULL",arg != NULL);
   
@@ -223,25 +236,33 @@ static err_t tcp_echoclient_recv(void *arg, struct tcp_pcb *tpcb, struct pbuf *p
   {
     /* increment message count */
     message_count++;
-	memset(tcp_client_recvbuf,0,TCP_FRAME_SIZE);  //数据接收缓冲区清零
-	for(q =p;q!=NULL;q=q->next)  //遍历完整个pbuf链表
+	memset(tcp_rec_fifo.buf_ptr + tcp_rec_fifo.wr*tcp_rec_fifo.byte_sizes,0, tcp_rec_fifo.byte_sizes);  //数据接收缓冲区清零
+	tcp_rec_fifo.byte_wr = 0;
+	tcp_rec_fifo.byte_len = 0;
+	for(q=p;q!=NULL;q=q->next)  //遍历完整个pbuf链表
 	{
 		//判断要拷贝到TCP_CLIENT_RX_BUFSIZE中的数据是否大于TCP_CLIENT_RX_BUFSIZE的剩余空间，如果大于
 		//的话就只拷贝TCP_CLIENT_RX_BUFSIZE中剩余长度的数据，否则的话就拷贝所有的数据
-		if(q->len > (TCP_FRAME_SIZE-data_len))
+		if(q->len > (tcp_rec_fifo.byte_sizes - tcp_rec_fifo.byte_wr))
 		{
-			memcpy(tcp_client_recvbuf + data_len,q->payload,(TCP_FRAME_SIZE - data_len));//拷贝数据
+			memcpy(tcp_rec_fifo.buf_ptr + tcp_rec_fifo.wr*tcp_rec_fifo.byte_sizes + tcp_rec_fifo.byte_wr, q->payload, (tcp_rec_fifo.byte_sizes - tcp_rec_fifo.byte_wr));//拷贝数据
 		}
 		else
 		{
-			memcpy(tcp_client_recvbuf + data_len,q->payload,q->len);
+			memcpy(tcp_rec_fifo.buf_ptr + tcp_rec_fifo.wr*tcp_rec_fifo.byte_sizes + tcp_rec_fifo.byte_wr,q->payload,q->len);
 		}
-		data_len += q->len;
-		//USART_SendData(EVAL_COM1,data_len);				
-		if(data_len > TCP_FRAME_SIZE)
+		tcp_rec_fifo.byte_wr += q->len;
+		if(tcp_rec_fifo.byte_wr > tcp_rec_fifo.byte_sizes)
 		{
 			break; //超出TCP客户端接收数组,跳出
 		}
+	}
+	tcp_rec_fifo.byte_len = tcp_rec_fifo.byte_wr;
+	tcp_rec_fifo.byte_wr = 0;
+	tcp_rec_fifo.wr++;
+	if(tcp_rec_fifo.wr >= tcp_rec_fifo.buf_size)
+	{
+		tcp_rec_fifo.wr = 0;
 	}
     /* Acknowledge data reception */
     tcp_recved(tpcb, p->tot_len);  
@@ -342,7 +363,7 @@ static err_t tcp_echoclient_poll(void *arg, struct tcp_pcb *tpcb)
       }
 	  else
 	  {
-		  tcp_write(tpcb,data,sizeof(data),1);
+		  tcp_write(tpcb,binary_poll_one_cmd,sizeof(binary_poll_one_cmd),1);
 	  }
     }
     ret_err = ERR_OK;

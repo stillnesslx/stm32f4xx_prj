@@ -19,6 +19,7 @@
 .\objects\tcp_echoclient.o: .\Libraries\lwip-1.4.1\src\include\ipv4\lwip/ip_addr.h
 .\objects\tcp_echoclient.o: .\Libraries\lwip-1.4.1\src\include\lwip/netif.h
 .\objects\tcp_echoclient.o: .\Libraries\lwip-1.4.1\src\include\ipv4\lwip/icmp.h
+.\objects\tcp_echoclient.o: port\tcp_echoclient.h
 .\objects\tcp_echoclient.o: .\APP\main.h
 .\objects\tcp_echoclient.o: .\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
 .\objects\tcp_echoclient.o: .\Libraries\CMSIS\Include\core_cm4.h
@@ -56,5 +57,6 @@
 .\objects\tcp_echoclient.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h
 .\objects\tcp_echoclient.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h
 .\objects\tcp_echoclient.o: .\port\stm32f4x7_eth_bsp.h
-.\objects\tcp_echoclient.o: .\algorithm\fifo_buffer.h
+.\objects\tcp_echoclient.o: .\algorithm\algorithm.h
 .\objects\tcp_echoclient.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\tcp_echoclient.o: port\cal_lms5xx.h

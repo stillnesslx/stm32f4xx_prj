@@ -50,5 +50,8 @@
 .\objects\stm32f4xx_it.o: .\Libraries\lwip-1.4.1\src\include\ipv4\lwip/ip_addr.h
 .\objects\stm32f4xx_it.o: .\Libraries\lwip-1.4.1\src\include\lwip/def.h
 .\objects\stm32f4xx_it.o: .\Libraries\lwip-1.4.1\src\include\lwip/pbuf.h
-.\objects\stm32f4xx_it.o: .\algorithm\fifo_buffer.h
+.\objects\stm32f4xx_it.o: .\algorithm\algorithm.h
 .\objects\stm32f4xx_it.o: .\port\tcp_echoclient.h
+.\objects\stm32f4xx_it.o: .\port\gpio_port.h
+.\objects\stm32f4xx_it.o: APP\sys_timer.h
+.\objects\stm32f4xx_it.o: .\port\cal_lms5xx.h

@@ -31,6 +31,10 @@
 #include "stm32f4xx_it.h"
 #include "main.h"
 #include "tcp_echoclient.h"
+#include "gpio_port.h"
+#include "sys_timer.h"
+#include "algorithm.h"
+#include "cal_lms5xx.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -121,6 +125,12 @@ void DebugMon_Handler(void)
   */
 void SysTick_Handler(void)
 {
+	sys_timer++;
+	deal_tcp_frame(&tcp_rec_fifo);
+	if(0 == (sys_timer & 0x3))//2^2 = 4ms
+	{
+		read_di(&di_value);
+	}
   /* Update the LocalTime by adding SYSTEMTICK_PERIOD_MS each SysTick interrupt */
   Time_Update();
 }
